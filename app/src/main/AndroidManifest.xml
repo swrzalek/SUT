@@ -17,8 +17,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".DatabaseActivity" />
-        <receiver android:name=".OwnReceiver"  />
-    </application>
+        <activity android:name=".GraphActivity" />
 
+        <receiver android:name=".OwnReceiver" />
+
+    </application>
 
 </manifest>

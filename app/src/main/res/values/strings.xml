@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">SUT</string>
+    <string name="title_activity_graphen">GraphenActivity</string>
 </resources>
