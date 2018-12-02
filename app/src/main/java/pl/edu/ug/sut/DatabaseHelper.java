@@ -92,7 +92,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
 
     public int dataCounter() {
-        String query = "SELECT * FROM " + TABLE_LAPS + " WHERE " + COL_DATE + "> datetime('now','-1 hours')";
+        String query = "SELECT * FROM " + TABLE_LAPS + " WHERE " + COL_DATE + "< datetime('now','-1 hours')";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor data = db.rawQuery(query, null);
         int count = (data.getCount() / 2);

@@ -25,50 +25,48 @@ public class GraphActivity extends AppCompatActivity {
         setContentView(R.layout.activity_graph);
         barChart = (BarChart) findViewById( R.id.barchart );
 
-
+        barChart.getDescription().setEnabled(false);
         ArrayList<BarEntry> OnEntries = new ArrayList<>();
         ArrayList<BarEntry> OffEntries = new ArrayList<>();
-        DatabaseHelper db = new DatabaseHelper( this);
-        for(DataModel k:db.getAll()){
-            if (k.getState().equals("ON" )) {
 
-                OnEntries.add(new BarEntry( k.getId() , Float.parseFloat(k.getDuration() ) ));
-
-            }
-            // textView.setText(k.getId().toString() + " | " + k.getState() + " | " +  k.getDate() + " | " +
-//            Log.d("Dane z bazy" ,k.getId() + " | " + k.getState() + " | " +  k.getDate() + " | " +  k.getDuration());
-        }
-        for(DataModel k:db.getAll()) {
-
-            if (k.getState().equals( "OFF" )) {
-
-                OffEntries.add( new BarEntry( k.getId(), Float.parseFloat( k.getDuration() ) ) );
-                            }
+        createEntries("ON",OnEntries);
+        createEntries( "OFF", OffEntries );
+//        for(DataModel k:db.getAll()){
+//            if (k.getState().equals("ON" ))
+//                OnEntries.add(new BarEntry( k.getId() , Float.parseFloat(k.getDuration() ) ));
+//        }
 
 
 
-        }
-
-        BarDataSet set1 = new BarDataSet( OnEntries, "DatesetOn" );
-        BarDataSet set2 = new BarDataSet( OffEntries, "DatesetOn" );
+        BarDataSet set1 = new BarDataSet( OnEntries, "Ekran włączony" );
+        BarDataSet set2 = new BarDataSet( OffEntries, "Ekran wyłączony" );
         ArrayList<Integer> colors = new ArrayList<Integer>();
 
-        colors.add(ContextCompat.getColor(this, R.color.colorAccent));
-        colors.add(ContextCompat.getColor(this, R.color.design_default_color_primary));
+
+        // sets colors for the dataset, resolution of the resource name to a "real" color is done internally
+        set1.setColor( 0xFF34C6EB );
+        set2.setColor( 0xFFEB6B34 );
         float groupSpace = 0.06f;
         float barSpace = 0.02f; // x2 dataset
         float barWidth = 0.45f; // x2 dataset
 // (0.02 + 0.45) * 2 + 0.06 = 1.00 -> interval per "group"
         BarData data = new BarData(set1, set2);
-        set1.setColors( colors );
+//        set1.setColors( colors );
 
         data.setBarWidth(barWidth); // set the width of each bar
         barChart.setData(data);
         barChart.groupBars( 1f,groupSpace,barSpace );
-//        barChart.groupBars(1980f, groupSpace, barSpace); // perform the "explicit" grouping
-//        barChart.invalidate(); // refresh
-//        XAxis xAxis = barChart.getXAxis();
-//        xAxis.setCenterAxisLabels(true);
+
 
     }
+
+    private void createEntries(String s,ArrayList arrayList) {
+        DatabaseHelper db = new DatabaseHelper( this);
+        for(DataModel k:db.getAll()) {
+
+            if (k.getState().equals( s ))
+                arrayList.add( new BarEntry( k.getId(), Float.parseFloat( k.getDuration() ) ) );
+        }
+    }
+
 }
