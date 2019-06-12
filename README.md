@@ -2,8 +2,9 @@
 **SUT**
 </hr>
 First Application for Android Devices.
-## Applcation let user to track usage time.
-* Unolocks during last hour
+<ul>Applcation let user to track usage time.
+  <li> Unolocks during last hour</li>
+  </ul>
 * Longest inactivity period
 * Longest activity period
 * Total activity time in last 24h
